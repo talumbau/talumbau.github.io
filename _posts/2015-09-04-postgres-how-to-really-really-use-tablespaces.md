@@ -38,6 +38,8 @@ OK, now we can `pgimport` to our heart's content right? NO. This is where I went
 CREATE TABLE IF NOT EXISTS data_all (PRIMARY KEY (id) USING INDEX TABLESPACE extraspace, LIKE some_data INCLUDING CONSTRAINTS INCLUDING DEFAULTS) TABLESPACE extraspace;
 </code>
 
+And any subsequent indices must use the new tablespace. If you create a new table inheriting the properties of an existing table, DON'T inherit the indices on the table because they will stored in $PGDATA. Manually create them:
+
 <code>
 CREATE INDEX an_index ON data_all USING btree (col1, col2) TABLESPACE extraspace;
 </code> 
