@@ -1,0 +1,6 @@
+siteurl: http://talumbau.github.io/
+url: "http://talumbau.github.io"
+baseurl: "http://talumbau.github.io"
+markdown: maruku
+pygments: false
+paginate: 
