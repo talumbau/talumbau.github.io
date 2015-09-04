@@ -8,7 +8,7 @@ header-img: "img/cd-background-img.jpg"
 ---
 <h2 class="section-heading">Postgres: How to Really, Really use Tablespaces</h2>
 
-I like PostgresDB, but recently I had a very opaque problem. The documentation (eventually) saved the day, but not before filling up the disk holding `/var/lib/pqsql/`. Oops. Read on to learn from my terrible, terrible mistakes.
+I like PostgresDB, but recently I had a very opaque problem. The documentation (eventually) saved the day, but not before filling up the disk holding `/var/lib/pgsql/`. Oops. Read on to learn from my terrible, terrible mistakes.
 
 Sometimes, when using an RDMS, you end up with more data that you thought you were going to have. You've already committed to having your database on some disk, but that disk is not big enough to hold the next chunk of data you need to import. There are a number of options for how to handle this, but we opted to use <i>tablespaces</i> in Postgres, which allow you to keep the 'home' for your data in $PGDATA, but put all of the data for a new table in a new directory (presumably attached to some bigger disk) specified for your tablespace.
 
