@@ -3,8 +3,9 @@ layout: post
 title: "Numpy changes in 1.10"
 description: ""
 category: 
+author: "T.J. Alumbaugh"
 header-img: "img/2.jpg"
-tags: ["python", "windows"]
+tags: ["python", "numpy"]
 ---
 
 <h2 class="section-heading">Numpy changes in 1.10</h2>
