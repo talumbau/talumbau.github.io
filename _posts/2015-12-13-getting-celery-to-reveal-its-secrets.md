@@ -36,7 +36,7 @@ CELERY_PREFETCH_MULTIPLIER=1 celery -A celery_tasks worker -l info
 
 What about concurrency? The celery docs say that the default setting here is to set the number of workers to be the same as the number of CPUs reported by the OS. For my jobs, I'm mostly CPU-bound, so that's a reasonable setting. If your jobs are often sitting around waiting for network traffic or the like, you might want to set that number higher. The setting is `CELERYD_CONCURRENCY`.
 
-But now I want to load test and prove that celery is doing what I want (prefetch setting to 1 and max concurrent jobs set to number of CPUs). If I get this wrong in production, too many jobs will launch and I'll get memory exceptions (due to my high memory watermark). Much like Drake, my level of trust here is low. In the documentation for event reporting. you will find all sorts of interesting ways to tweak the reporting of events, but you won't find the actual magic command you have to enter so that you can actually see what your jobs are doing.
+But now I want to load test and prove that celery is doing what I want (prefetch setting to 1 and max concurrent jobs set to number of CPUs). If I get this wrong in production, too many jobs will launch and I'll get memory exceptions (due to my high memory watermark). Much like Drake, my level of trust here is low. In the documentation for event reporting, you will find all sorts of interesting ways to tweak the reporting of events, but you won't find the actual magic command you have to enter so that you can actually see what your jobs are doing.
 
 The trick is to tell celery that you would like to enable events, and *then* it will allow you to view tasks as they come in with the `events` command:
 
@@ -69,7 +69,7 @@ if result.ready():
 
 The worst thing about this solution is that it works some of the time. This `result` object will respond correctly to `ready()` as long as the only thing that ever happens to your job is that it executes succesfully. If your job does anything other than succeed, this technique will always tell you that your job is in the PENDING state. Forever. With no error message. So, I gathered that I shouldn't do that.
 
-Instead, you should keep track of what the actual object returned by the `delay` method; here I use a dictionary:
+Instead, you should keep track of the actual object returned by the `delay` method; here I use a dictionary:
 
 {% highlight python %}
 job_handle = my_task.delay(arg1, arg2)
