@@ -14,7 +14,7 @@ tags: ["python", "celery", "django"]
 <iframe style="float:center" align="middle" src="//giphy.com/embed/3o85xKWHrNvXqAvWMM" width="600" height="270" frameBorder="40"  class="giphy-embed" allowFullScreen></iframe><p align="center"><a href="http://giphy.com/gifs/music-video-drake-hotline-bling-3o85xKWHrNvXqAvWMM">via GIPHY</a></p>
 </div>
 
-There's two things we can all agree on: 1. Drake dropped a massive hit with his single "Hotline Bling" and 2. `celery` is a great distributed computing library for a wide range of needs. That being said, `celery` (much like Drake's complex relationship status as described in his song) is not for the faint of heart. `celery` can feel *too* configurable: it has all sorts of bells and whistles, but sometimes it can be difficult to know how to get it to do what you want. One necessary use case is reporting: what your are jobs doing and what `celery` is doing with them. The default settings aren't great for this so if you don't set things up correctly, just like Drake's lament about his erstwhile girlfriend, you will be in a state of wondering what's going on. So let's get them on that hotline bling.
+There are two things we can all agree on: 1. Drake dropped a massive hit with his single "Hotline Bling" and 2. `celery` is a great distributed computing library for a wide range of needs. That being said, `celery` (much like Drake's complex relationship status as described in his song) is not for the faint of heart. `celery` can feel *too* configurable: it has all sorts of bells and whistles, but sometimes it can be difficult to know how to get it to do what you want. One necessary use case is reporting: what your are jobs doing and what `celery` is doing with them. The default settings aren't great for this so if you don't set things up correctly, just like Drake's lament about his erstwhile girlfriend, you will be in a state of wondering what's going on. So let's get them on that hotline bling.
 
 Here we just want to accomplish two things:
 
@@ -45,13 +45,13 @@ $ celery -A celery_tasks control enable_events
 $ celery -A celery_tasks events
 {% endhighlight %}
 
-This will bring up a screen that will show you exactly what's going on as jobs are run in your system:
+This will bring up a screen that will show you exactly what's going on as jobs are run on your system:
 
 ![](/img/celery_events.png "I know when that hotline bling, celery is doing its thing.")
 
 What about when your jobs complete? Celery provides a number of mechanisms for you to figure out that those jobs you thought were so well-behaved were actually living a wild wild nightlife. It turns out that my original way of handling generated celery tasks works, but only for certain cases. So here is what I originally did:
 
-Step 1: After launching an asychronous task, just return its job ID and use that as your handle for the job.
+Step 1: After launching an asynchronous task, just return its job ID and use that as your handle for the job.
 
 {% highlight python %}
 handle = my_task.delay(arg1, arg2)
@@ -59,9 +59,9 @@ return str(handle)
 
 {% endhighlight %}
 
-Step 2. At some later time, create a fresh AsynResult object from that job ID. 
+Step 2. At some later time, create a fresh AsyncResult object from that job ID. 
 {% highlight python %}
-# Use the job_id to create an AsynResult and get its status
+# Use the job_id to create an AsyncResult and get its status
 result = celery_app.AsyncResult(job_id)
 if result.ready():
     return resultsresult
